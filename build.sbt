@@ -22,6 +22,9 @@ libraryDependencies ++= (akkaDependencies ++ zkDependencies ++ testDependencies)
 
 parallelExecution in Test := false
 
+object Versions {
+  val akka = "2.3.4"
+}
 
 pomExtra := (
   <url>http://github.com/sclasen/akka-zk-cluster-seed</url>
@@ -78,9 +81,9 @@ def rootProject = Project("akka-zk-cluster-seed", file("."))
   .configs(IntegrationTest, MultiJvm)
 
 def akkaDependencies = Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2.3.3" % "provided",
-  "com.typesafe.akka" %% "akka-cluster" % "2.3.3" % "provided",
-  "com.typesafe.akka" %% "akka-slf4j" % "2.3.3" % "provided",
+  "com.typesafe.akka" %% "akka-actor" % Versions.akka % "provided",
+  "com.typesafe.akka" %% "akka-cluster" % Versions.akka % "provided",
+  "com.typesafe.akka" %% "akka-slf4j" % Versions.akka % "provided",
   "org.slf4j" % "log4j-over-slf4j" % "1.6.6" % "provided",
   "ch.qos.logback" % "logback-classic" % "1.1.2"  % "provided",
   "io.spray" %% "spray-json" % "1.2.6" % "provided"
@@ -92,11 +95,11 @@ def zkDependencies = Seq(
 )
 
 def testDependencies = Seq(
-  "com.typesafe.akka" %% "akka-testkit" % "2.3.3" % "test,it,multi-jvm",
-  "com.typesafe.akka" %% "akka-actor" % "2.3.3" % "test,it,multi-jvm",
-  "com.typesafe.akka" %% "akka-cluster" % "2.3.3" % "test,it,multi-jvm",
+  "com.typesafe.akka" %% "akka-testkit" % Versions.akka % "test,it,multi-jvm",
+  "com.typesafe.akka" %% "akka-actor" % Versions.akka % "test,it,multi-jvm",
+  "com.typesafe.akka" %% "akka-cluster" % Versions.akka % "test,it,multi-jvm",
   "org.scalatest" %% "scalatest" % "2.1.6" % "test,it,multi-jvm",
-  "com.typesafe.akka" %% "akka-multi-node-testkit" % "2.3.3" % "test,it,multi-jvm",
+  "com.typesafe.akka" %% "akka-multi-node-testkit" % Versions.akka % "test,it,multi-jvm",
   "com.typesafe.akka" %% "akka-slf4j" % "2.3.3" % "test,it,multi-jvm",
   "org.slf4j" % "log4j-over-slf4j" % "1.6.6" % "test,it,multi-jvm",
   "ch.qos.logback" % "logback-classic" % "1.1.2"  % "test,it,multi-jvm"
