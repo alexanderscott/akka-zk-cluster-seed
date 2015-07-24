@@ -15,7 +15,7 @@ a reasonable range of akka versions configured in your build.sbt. Note that you 
 project if you want to use the neftlix exhibitor integration described below.
 
 ```scala
-libraryDependencies += "com.sclasen" %% "akka-zk-cluster-seed" % "0.0.6"
+libraryDependencies += "com.sclasen" %% "akka-zk-cluster-seed" % "0.1.2"
 ```
 
 When starting your app, use the `ZookeeperClusterSeed` extension, instead of the `Cluster` extension to join your cluster.
@@ -58,6 +58,19 @@ akka.cluster.seed.zookeeper {
 
 ```
 
+If your zookeeper path requires authorization you have to specify additional `authorization` section:
+
+
+```
+// application.conf
+akka.cluster.seed.zookeeper {
+    authorization {
+        scheme = "digest"
+        auth = "username:secret"
+    }
+}
+```
+
 
 details
 -------
@@ -67,3 +80,16 @@ It uses the curator `LeaderLatch` to elect a node to serve as a seed node. The l
 other nodes `joinSeedNodes` using the current leader as the seed.  If the leader goes offline, a new leader is elected to be the seed.
 
 
+If you need to use other hostname & port you may configure the _name_ of the environment variables to retrieve these values from.
+This might be handy to use with docker containers
+
+
+```
+// reference.conf
+akka.cluster.seed.zookeeper {
+    url = "127.0.0.1:2181"
+    path = "/akka/cluster/seed"
+    host_env_var = ${?HOST}
+    port_env_var = ${?PORT_8080}
+}
+```
